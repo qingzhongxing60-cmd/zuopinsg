@@ -98,7 +98,28 @@ services:
           memory: 1g
           cpus: "1.0"
 
-  # ==================== Nginx ====================
+  # ==================== Website (前台主站) ====================
+  website:
+    container_name: agentpm-website
+    # 前台网站镜像（nginx + 已 baked 的静态产物与配置，在 .env 配置 WEBSITE_IMAGE）
+    image: ${WEBSITE_IMAGE}
+    restart: unless-stopped
+    environment:
+      TZ: "Asia/Shanghai"
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - agentpm
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+
+  # ==================== Nginx (admin 后台管理端) ====================
   nginx:
     container_name: agentpm-nginx
     # 前端镜像（nginx + 已 baked 的静态产物与配置，在 .env 配置 FRONTEND_IMAGE）
@@ -107,8 +128,8 @@ services:
     environment:
       TZ: "Asia/Shanghai"
     ports:
-      - "${HTTP_PORT:-80}:80"
-      - "${HTTPS_PORT:-443}:443"
+      # admin 后台占 8080，避免与前台主站的 80 冲突
+      - "${ADMIN_PORT:-8080}:80"
     volumes:
       # 静态产物与 nginx.conf 已打进镜像；仅保留证书目录挂载供 HTTPS 使用
       - ./nginx/ssl:/etc/nginx/ssl:ro

@@ -21,6 +21,7 @@ on:
     paths:
       - "server/**"
       - "admin/**"
+      - "website/**"
       - ".github/workflows/build-and-push.yml"
   workflow_dispatch: {}
 
@@ -43,6 +44,9 @@ jobs:
           - name: frontend
             context: ./admin
             dockerfile: ./admin/Dockerfile
+          - name: website
+            context: ./website
+            dockerfile: ./website/Dockerfile
     steps:
       - name: Checkout
         uses: actions/checkout@v4
