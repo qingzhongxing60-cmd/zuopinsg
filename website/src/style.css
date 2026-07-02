@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/*
+ * 作品拾光 - 暖色系主题 token
+ * 通过 Tailwind v4 @theme 暴露为工具类（bg-cream / text-rust / border-sand 等）
+ */
+@theme {
+  /* 背景层次：页面底 / 卡片 / 浅强调块 */
+  --color-cream: #f0ebe3;
+  --color-paper: #faf7f2;
+  --color-card: #f6f2ea;
+  --color-sand: #e4dccf;
+
+  /* 主强调色（陶土橙）与深浅变体 */
+  --color-rust: #bb4d2b;
+  --color-rust-soft: #d98c5f;
+  --color-rust-tint: #f2e2d6;
+
+  /* 文字层次：标题 / 正文 / 辅助 */
+  --color-ink: #2b2622;
+  --color-stone: #6b6155;
+  --color-mute: #9a8f80;
+
+  /* 衬线字体（中文标题用） */
+  --font-serif: "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  /* 锚点跳转平滑滚动 */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-ink);
+  background-color: var(--color-cream);
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 修复 Tailwind preflight 对 a 标签的影响 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 衬线标题工具类 */
+.font-serif {
+  font-family: var(--font-serif);
+}

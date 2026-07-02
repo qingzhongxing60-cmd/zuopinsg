@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io">
+  <diagram name="数据统计时序图" id="stats-seq">
+    <mxGraphModel dx="800" dy="600" grid="0" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="420" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t" value="数据统计 — 功能时序图（访问量累加与排行展示）" style="text;html=1;align=center;fontSize=15;fontStyle=1;fontColor=#1a237e;" vertex="1" parent="1"><mxGeometry x="160" y="14" width="480" height="26" as="geometry"/></mxCell>
+        <mxCell id="visitor" value="访客" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="56" width="100" height="36" as="geometry"/></mxCell>
+        <mxCell id="web" value="展示站点详情" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="200" y="56" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="svc" value="访问统计服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="380" y="56" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="db" value="数据存储" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="560" y="56" width="90" height="36" as="geometry"/></mxCell>
+        <mxCell id="admin" value="管理员后台" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="690" y="56" width="100" height="36" as="geometry"/></mxCell>
+        <mxCell id="lv" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="90" y="92" as="sourcePoint"/><mxPoint x="90" y="380" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lw" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="260" y="92" as="sourcePoint"/><mxPoint x="260" y="380" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="ls" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="92" as="sourcePoint"/><mxPoint x="440" y="380" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="ld" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="605" y="92" as="sourcePoint"/><mxPoint x="605" y="380" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="laa" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="740" y="92" as="sourcePoint"/><mxPoint x="740" y="380" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m1" value="访问作品详情" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="90" y="120" as="sourcePoint"/><mxPoint x="260" y="120" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m2" value="上报访问（同源去重）" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="260" y="156" as="sourcePoint"/><mxPoint x="440" y="156" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m3" value="24小时内首次则累加访问量" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="192" as="sourcePoint"/><mxPoint x="605" y="192" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m4" value="查看访问量排行" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="740" y="240" as="sourcePoint"/><mxPoint x="440" y="240" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m5" value="按访问量降序聚合已发布作品" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="280" as="sourcePoint"/><mxPoint x="605" y="280" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m6" value="返回排行数据" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="320" as="sourcePoint"/><mxPoint x="740" y="320" as="targetPoint"/></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

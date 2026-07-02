@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io">
+  <diagram name="首页配置时序图" id="home-seq">
+    <mxGraphModel dx="800" dy="600" grid="0" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="780" pageHeight="400" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t" value="首页配置 — 功能时序图（选取精选作品并保存）" style="text;html=1;align=center;fontSize=15;fontStyle=1;fontColor=#1a237e;" vertex="1" parent="1"><mxGeometry x="150" y="14" width="480" height="26" as="geometry"/></mxCell>
+        <mxCell id="actor" value="管理员" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="50" y="56" width="110" height="36" as="geometry"/></mxCell>
+        <mxCell id="ui" value="首页配置后台" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="250" y="56" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="svc" value="首页配置服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="450" y="56" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="ws" value="作品服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="650" y="56" width="100" height="36" as="geometry"/></mxCell>
+        <mxCell id="la" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="105" y="92" as="sourcePoint"/><mxPoint x="105" y="360" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lui" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="92" as="sourcePoint"/><mxPoint x="310" y="360" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lsvc" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="510" y="92" as="sourcePoint"/><mxPoint x="510" y="360" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lws" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="700" y="92" as="sourcePoint"/><mxPoint x="700" y="360" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m1" value="打开精选作品选取" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="105" y="126" as="sourcePoint"/><mxPoint x="310" y="126" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m2" value="请求已发布作品候选" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="166" as="sourcePoint"/><mxPoint x="700" y="166" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m3" value="返回已发布作品列表" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="700" y="206" as="sourcePoint"/><mxPoint x="310" y="206" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m4" value="选定精选作品并保存配置" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="105" y="250" as="sourcePoint"/><mxPoint x="510" y="250" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m5" value="保存配置，展示端首页即时生效" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="510" y="300" as="sourcePoint"/><mxPoint x="105" y="300" as="targetPoint"/></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

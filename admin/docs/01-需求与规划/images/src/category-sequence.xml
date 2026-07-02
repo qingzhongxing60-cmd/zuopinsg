@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io">
+  <diagram name="分类管理时序图" id="cat-seq">
+    <mxGraphModel dx="800" dy="600" grid="0" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="820" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t" value="分类管理 — 功能时序图（删除分类引用保护）" style="text;html=1;align=center;fontSize=15;fontStyle=1;fontColor=#1a237e;" vertex="1" parent="1"><mxGeometry x="180" y="14" width="460" height="26" as="geometry"/></mxCell>
+        <mxCell id="actor" value="管理员" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="60" y="56" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="ui" value="分类管理后台" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="300" y="56" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="svc" value="分类服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="520" y="56" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="db" value="数据存储" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="700" y="56" width="100" height="36" as="geometry"/></mxCell>
+        <mxCell id="la" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="120" y="92" as="sourcePoint"/><mxPoint x="120" y="460" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lui" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="360" y="92" as="sourcePoint"/><mxPoint x="360" y="460" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lsvc" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="92" as="sourcePoint"/><mxPoint x="580" y="460" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="ldb" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="750" y="92" as="sourcePoint"/><mxPoint x="750" y="460" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m1" value="点击删除分类" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="120" y="126" as="sourcePoint"/><mxPoint x="360" y="126" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m2" value="发起删除请求" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="360" y="166" as="sourcePoint"/><mxPoint x="580" y="166" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m3" value="查询该分类下作品引用数" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="206" as="sourcePoint"/><mxPoint x="750" y="206" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m4" value="返回引用数量" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="750" y="246" as="sourcePoint"/><mxPoint x="580" y="246" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m5" value="有引用：拒绝删除；无引用：执行删除" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="296" as="sourcePoint"/><mxPoint x="360" y="296" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m6" value="提示先迁移作品 或 删除成功" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="360" y="346" as="sourcePoint"/><mxPoint x="120" y="346" as="targetPoint"/></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

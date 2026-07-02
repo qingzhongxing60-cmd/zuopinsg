@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io">
+  <diagram name="展示站点操作流程图" id="site-op">
+    <mxGraphModel dx="900" dy="800" grid="0" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="720" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t" value="展示站点 — 访客浏览操作流程" style="text;html=1;align=center;fontSize=16;fontStyle=1;fontColor=#1a237e;" vertex="1" parent="1"><mxGeometry x="180" y="20" width="360" height="30" as="geometry"/></mxCell>
+        <mxCell id="s" value="访客进入首页" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1"><mxGeometry x="290" y="64" width="150" height="44" as="geometry"/></mxCell>
+        <mxCell id="n1" value="浏览展示标语与精选作品" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="275" y="134" width="180" height="44" as="geometry"/></mxCell>
+        <mxCell id="d1" value="选择导航入口" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1"><mxGeometry x="295" y="204" width="140" height="70" as="geometry"/></mxCell>
+        <mxCell id="b1" value="作品列表&#10;按分类筛选" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="40" y="320" width="150" height="50" as="geometry"/></mxCell>
+        <mxCell id="b2" value="时间轴&#10;浏览成长轨迹" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="300" y="320" width="150" height="50" as="geometry"/></mxCell>
+        <mxCell id="b3" value="关于我&#10;能力展示与简历" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="540" y="320" width="150" height="50" as="geometry"/></mxCell>
+        <mxCell id="n2" value="进入作品详情&#10;系统记录访问量（24h去重）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="30" y="420" width="180" height="50" as="geometry"/></mxCell>
+        <mxCell id="n3" value="切换原型版本/放大图片/阅读拆解" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="20" y="510" width="200" height="50" as="geometry"/></mxCell>
+        <mxCell id="e" value="结束浏览" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1"><mxGeometry x="300" y="620" width="130" height="44" as="geometry"/></mxCell>
+        <mxCell id="c1" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="s" target="n1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c2" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="n1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c3" value="作品列表" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="d1" target="b1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c4" value="时间轴" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="d1" target="b2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c5" value="关于我" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="d1" target="b3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c6" value="点击作品" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="b1" target="n2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c7" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="n2" target="n3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c8" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="n3" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c9" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="b2" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c10" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="b3" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

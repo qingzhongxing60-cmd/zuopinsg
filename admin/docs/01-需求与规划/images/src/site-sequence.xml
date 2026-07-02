@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io">
+  <diagram name="展示站点时序图" id="site-seq">
+    <mxGraphModel dx="900" dy="640" grid="0" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="460" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t" value="展示站点 — 功能时序图（访问作品详情）" style="text;html=1;align=center;fontSize=15;fontStyle=1;fontColor=#1a237e;" vertex="1" parent="1"><mxGeometry x="170" y="14" width="460" height="26" as="geometry"/></mxCell>
+        <mxCell id="visitor" value="访客" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="50" y="56" width="100" height="36" as="geometry"/></mxCell>
+        <mxCell id="web" value="展示站点详情页" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="220" y="56" width="130" height="36" as="geometry"/></mxCell>
+        <mxCell id="svc" value="作品/原型/拆解服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="430" y="56" width="160" height="36" as="geometry"/></mxCell>
+        <mxCell id="db" value="数据存储" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="670" y="56" width="100" height="36" as="geometry"/></mxCell>
+        <mxCell id="lv" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="100" y="92" as="sourcePoint"/><mxPoint x="100" y="430" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lw" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="285" y="92" as="sourcePoint"/><mxPoint x="285" y="430" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="ls" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="510" y="92" as="sourcePoint"/><mxPoint x="510" y="430" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="ld" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="720" y="92" as="sourcePoint"/><mxPoint x="720" y="430" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m1" value="打开作品详情（唯一标识）" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="100" y="124" as="sourcePoint"/><mxPoint x="285" y="124" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m2" value="请求作品详情、原型版本、已发布拆解" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="285" y="164" as="sourcePoint"/><mxPoint x="510" y="164" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m3" value="查询已发布数据（草稿隔离）" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="510" y="204" as="sourcePoint"/><mxPoint x="720" y="204" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m4" value="返回详情数据" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="510" y="244" as="sourcePoint"/><mxPoint x="285" y="244" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m5" value="呈现详情，支持版本切换与图片放大" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="285" y="284" as="sourcePoint"/><mxPoint x="100" y="284" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m6" value="上报访问，24小时内首次则访问量+1" style="html=1;endArrow=block;fontSize=11;strokeColor=#E67300;fontColor=#E67300;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="285" y="330" as="sourcePoint"/><mxPoint x="720" y="330" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m7" value="确认记录" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="720" y="370" as="sourcePoint"/><mxPoint x="285" y="370" as="targetPoint"/></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

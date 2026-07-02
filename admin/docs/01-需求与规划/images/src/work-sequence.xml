@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io">
+  <diagram name="作品管理时序图" id="work-seq">
+    <mxGraphModel dx="900" dy="700" grid="0" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="820" pageHeight="640" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t" value="作品管理 — 功能时序图（新增并发布作品）" style="text;html=1;align=center;fontSize=15;fontStyle=1;fontColor=#1a237e;" vertex="1" parent="1"><mxGeometry x="180" y="14" width="440" height="26" as="geometry"/></mxCell>
+        <mxCell id="actor" value="管理员" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="60" y="60" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="ui" value="作品管理后台" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="300" y="60" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="svc" value="作品服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="520" y="60" width="120" height="36" as="geometry"/></mxCell>
+        <mxCell id="db" value="数据存储" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="700" y="60" width="100" height="36" as="geometry"/></mxCell>
+        <mxCell id="la" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="120" y="96" as="sourcePoint"/><mxPoint x="120" y="600" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lui" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="360" y="96" as="sourcePoint"/><mxPoint x="360" y="600" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="lsvc" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="96" as="sourcePoint"/><mxPoint x="580" y="600" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="ldb" style="endArrow=none;dashed=1;html=1;strokeColor=#666;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="750" y="96" as="sourcePoint"/><mxPoint x="750" y="600" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m1" value="填写作品信息并提交" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="120" y="130" as="sourcePoint"/><mxPoint x="360" y="130" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m2" value="提交保存请求" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="360" y="170" as="sourcePoint"/><mxPoint x="580" y="170" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m3" value="校验唯一标识" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="210" as="sourcePoint"/><mxPoint x="750" y="210" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m4" value="保存作品（草稿）" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="250" as="sourcePoint"/><mxPoint x="750" y="250" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m5" value="返回保存结果" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="290" as="sourcePoint"/><mxPoint x="360" y="290" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m6" value="提示保存成功" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="360" y="330" as="sourcePoint"/><mxPoint x="120" y="330" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m7" value="点击发布" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="120" y="380" as="sourcePoint"/><mxPoint x="360" y="380" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m8" value="更新发布状态并记录发布时间" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="360" y="420" as="sourcePoint"/><mxPoint x="580" y="420" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m9" value="写入已发布状态" style="html=1;endArrow=block;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="460" as="sourcePoint"/><mxPoint x="750" y="460" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m10" value="提示发布成功" style="html=1;endArrow=block;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="360" y="510" as="sourcePoint"/><mxPoint x="120" y="510" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m10b" style="html=1;endArrow=none;dashed=1;fontSize=11;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="580" y="500" as="sourcePoint"/><mxPoint x="360" y="500" as="targetPoint"/></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

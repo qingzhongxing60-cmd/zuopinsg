@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- 品牌标识：铁锈色圆底 + 白色衬线「拾」，与站点头部 logo 一致 -->
+  <circle cx="32" cy="32" r="32" fill="#bb4d2b" />
+  <text
+    x="32"
+    y="33"
+    fill="#ffffff"
+    font-family="'Noto Serif SC','Songti SC',serif"
+    font-size="38"
+    font-weight="700"
+    text-anchor="middle"
+    dominant-baseline="central"
+  >拾</text>
+</svg>

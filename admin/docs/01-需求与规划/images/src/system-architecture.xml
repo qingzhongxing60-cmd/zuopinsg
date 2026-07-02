@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io">
+  <diagram name="作品时光系统功能架构图" id="zuopinshiguang-arch">
+    <mxGraphModel dx="1200" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1160" pageHeight="780" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="spacer" value="" style="fillColor=none;strokeColor=none;opacity=0;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1130" height="700" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="title" value="作品时光 — 个人作品集系统功能架构" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1a237e;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="1060" height="36" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L1_label" value="展示层" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1565c0;strokeColor=none;fontSize=11;fontStyle=1;fontColor=#ffffff;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry x="30" y="74" width="80" height="28" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L1_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="125" y="62" width="975" height="180" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L1_admin_title" value="管理后台（PC 端 Web）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1565c0;strokeColor=none;fontSize=11;fontStyle=1;fontColor=#ffffff;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="140" y="74" width="450" height="26" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L1_a1" value="作品管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="108" width="136" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_a2" value="分类管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="286" y="108" width="136" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_a3" value="时间轴管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="432" y="108" width="148" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_a4" value="关于我管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="152" width="136" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_a5" value="首页配置" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="286" y="152" width="136" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_a6" value="数据统计" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="432" y="152" width="148" height="34" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L1_site_title" value="展示站点（PC 端 Web）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0277bd;strokeColor=none;fontSize=11;fontStyle=1;fontColor=#ffffff;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="610" y="74" width="475" height="26" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L1_s1" value="首页" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="610" y="108" width="86" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_s2" value="作品列表" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="706" y="108" width="90" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_s3" value="作品详情" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="806" y="108" width="90" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_s4" value="时间轴" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="906" y="108" width="82" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1_s5" value="关于我" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#90caf9;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="998" y="108" width="87" height="34" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L2_label" value="后端服务层" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e65100;strokeColor=none;fontSize=11;fontStyle=1;fontColor=#ffffff;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry x="30" y="276" width="80" height="28" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L2_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#ffe082;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="125" y="264" width="975" height="180" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L2_biz_title" value="业务服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fb8c00;strokeColor=none;fontSize=11;fontStyle=1;fontColor=#ffffff;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="140" y="276" width="760" height="24" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L2_b1" value="作品服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="308" width="110" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_b2" value="原型版本服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="260" y="308" width="120" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_b3" value="拆解文章服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="308" width="120" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_b4" value="分类服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="308" width="110" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_b5" value="时间轴服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="352" width="110" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_b6" value="技能服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="260" y="352" width="110" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_b7" value="个人介绍服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="352" width="120" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_b8" value="首页配置服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="510" y="352" width="120" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_b9" value="访问统计服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="640" y="308" width="120" height="34" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L2_common_title" value="公共能力" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f57c00;strokeColor=none;fontSize=11;fontStyle=1;fontColor=#ffffff;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="820" y="276" width="265" height="24" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L2_c1" value="登录认证" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="820" y="308" width="120" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2_c2" value="文件上传" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ffe082;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="950" y="308" width="135" height="34" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L3_label" value="数据存储层" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2e7d32;strokeColor=none;fontSize=11;fontStyle=1;fontColor=#ffffff;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry x="30" y="480" width="80" height="28" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L3_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#a5d6a7;arcSize=3;" vertex="1" parent="1">
+          <mxGeometry x="125" y="468" width="975" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="L3_db" value="&lt;b&gt;数据库（MySQL）&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px;color:#666&quot;&gt;所有业务数据持久化存储&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#66bb6a;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="480" width="340" height="46" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="legend_title" value="图例" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="30" y="570" width="40" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg1_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#90caf9;" vertex="1" parent="1">
+          <mxGeometry x="78" y="572" width="18" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1_txt" value="展示层" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="100" y="568" width="60" height="22" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg2_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#ffe082;" vertex="1" parent="1">
+          <mxGeometry x="170" y="572" width="18" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2_txt" value="后端服务层" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="192" y="568" width="70" height="22" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg3_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#a5d6a7;" vertex="1" parent="1">
+          <mxGeometry x="272" y="572" width="18" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3_txt" value="数据存储层" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="294" y="568" width="70" height="22" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
