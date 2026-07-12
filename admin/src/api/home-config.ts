@@ -6,6 +6,10 @@ export interface HomeConfig {
   slogan: string
   /** 副标题（选填，0-100字） */
   subtitle: string | null
+  /** 标语中需要高亮显示的文字片段（选填，须为展示标语的子串，为空则不高亮） */
+  highlightText: string | null
+  /** 高亮文字颜色（选填，十六进制色值，为空时展示端使用默认强调色） */
+  highlightColor: string | null
   /** 已选精选作品 ID 列表 */
   featuredWorkIds: number[]
 }
@@ -28,11 +32,13 @@ export function getHomeConfig() {
 
 /**
  * 更新首页配置（覆盖写入）
- * @param data 展示标语、副标题、精选作品 ID 列表
+ * @param data 展示标语、副标题、高亮文字片段、高亮颜色、精选作品 ID 列表
  */
 export function updateHomeConfig(data: {
   slogan: string
   subtitle?: string | null
+  highlightText?: string | null
+  highlightColor?: string | null
   featuredWorkIds: number[]
 }) {
   return request.put({

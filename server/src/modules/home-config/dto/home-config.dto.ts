@@ -7,6 +7,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  Matches,
   MaxLength
 } from 'class-validator'
 
@@ -26,6 +27,20 @@ export class UpdateHomeConfigDto {
   @IsString()
   @MaxLength(100, { message: '副标题不能超过 100 字' })
   subtitle?: string | null
+
+  @ApiProperty({ description: '高亮文字片段（须为标语子串）', required: false, maxLength: 50 })
+  @IsOptional()
+  @IsString()
+  @MaxLength(50, { message: '高亮文字不能超过 50 字' })
+  highlightText?: string | null
+
+  @ApiProperty({ description: '高亮文字颜色（十六进制色值，如 #C0451F）', required: false, maxLength: 20 })
+  @IsOptional()
+  @IsString()
+  @MaxLength(20, { message: '高亮颜色格式不正确' })
+  // 仅允许 3/6 位十六进制色值，防止非法样式值落库
+  @Matches(/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/, { message: '高亮颜色须为十六进制色值，如 #C0451F' })
+  highlightColor?: string | null
 
   @ApiProperty({ description: '精选作品 ID 列表', type: [Number] })
   @IsArray({ message: '精选作品列表格式不正确' })

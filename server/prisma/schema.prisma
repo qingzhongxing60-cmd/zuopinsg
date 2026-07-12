@@ -735,6 +735,10 @@ model HomeConfig {
   slogan          String   @db.VarChar(50)
   /// 副标题（选填，0-100 字）
   subtitle        String?  @db.VarChar(100)
+  /// 标语中需高亮显示的文字片段（选填，须为 slogan 的子串）
+  highlightText   String?  @db.VarChar(50)
+  /// 高亮文字颜色（选填，十六进制色值，如 #C0451F）
+  highlightColor  String?  @db.VarChar(20)
   /// 精选作品 ID 列表（Json 数组，保留前端传入顺序）
   featuredWorkIds Json     @default("[]")
   /// 租户 ID

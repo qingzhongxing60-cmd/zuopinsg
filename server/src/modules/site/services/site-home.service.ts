@@ -3,6 +3,7 @@ import { PrismaService } from '@/common/prisma.service'
 import {
   SiteHomeVo,
   SiteHeroVo,
+  SiteHeroTitleLineVo,
   SiteFeaturedWorkVo,
   SiteCapabilityVo,
   SiteThoughtVo,
@@ -31,6 +32,8 @@ export class SiteHomeService {
   async getHome(): Promise<SiteHomeVo> {
     const config = await this.prisma.homeConfig.findUnique({ where: { id: SINGLETON_ID } })
     const featuredIds = this.parseFeaturedIds(config?.featuredWorkIds)
+    const highlightText = config?.highlightText ?? null
+    const highlightColor = config?.highlightColor ?? null
 
     const [featured, capabilities, thoughts, about, timeline, publishedCount, skillCount] =
       await Promise.all([
@@ -46,6 +49,8 @@ export class SiteHomeService {
     const hero = this.buildHero({
       slogan: config?.slogan ?? '',
       subtitle: config?.subtitle ?? null,
+      highlightText,
+      highlightColor,
       featured,
       publishedCount,
       skillCount,
@@ -64,6 +69,8 @@ export class SiteHomeService {
   private buildHero(ctx: {
     slogan: string
     subtitle: string | null
+    highlightText: string | null
+    highlightColor: string | null
     featured: SiteFeaturedWorkVo[]
     publishedCount: number
     skillCount: number
@@ -73,7 +80,7 @@ export class SiteHomeService {
     return {
       eyebrow: 'AI PRODUCT MANAGER',
       titleLines: ctx.slogan
-        ? [{ text: ctx.slogan }]
+        ? this.buildTitleLines(ctx.slogan, ctx.highlightText, ctx.highlightColor)
         : [{ text: '用 ', accent: 'AI' }, { text: '产品的', accent: '每一刻' }],
       subtitle: ctx.subtitle,
       stats: [
@@ -89,6 +96,35 @@ export class SiteHomeService {
       accentBlock: { lines: [{ text: '智能' }, { text: '产品', accent: true }, { text: '设计' }] },
       growthCard: { badge: 'GROWTH', bars: [35, 45, 42, 58, 70, 85, 100] },
     }
+  }
+
+  /**
+   * 将标语拆分为标题行，命中高亮片段时以强调片段渲染
+   * highlightText 须为 slogan 的子串且非空，否则整段作普通文本返回。
+   * @param slogan 展示标语
+   * @param highlightText 需高亮的子串（可空）
+   * @param highlightColor 高亮颜色（可空，缺省用主题强调色）
+   * @returns 标题行数组
+   */
+  private buildTitleLines(
+    slogan: string,
+    highlightText: string | null,
+    highlightColor: string | null,
+  ): SiteHeroTitleLineVo[] {
+    const keyword = highlightText?.trim() ?? ''
+    const start = keyword ? slogan.indexOf(keyword) : -1
+    // 无高亮或未命中：整段普通文本
+    if (!keyword || start === -1) {
+      return [{ text: slogan }]
+    }
+    const line: SiteHeroTitleLineVo = {
+      text: slogan.slice(0, start),
+      accent: keyword,
+      tail: slogan.slice(start + keyword.length),
+    }
+    const color = highlightColor?.trim()
+    if (color) line.accentColor = color
+    return [line]
   }
 
   /**

@@ -23,7 +23,8 @@ interface SiteWork {
 export interface HomeData {
   hero: {
     eyebrow: string
-    titleLines: { text: string; accent?: string }[]
+    /** 标题行：text 为强调前文本，accent 强调片段，tail 强调后文本，accentColor 自定义强调色 */
+    titleLines: { text: string; accent?: string; accentColor?: string; tail?: string }[]
     subtitle: string | null
     stats: { value: string; label: string }[]
     ctaText: string
@@ -433,6 +434,7 @@ interface AboutDataShape {
   intro: string
   stats: AboutStatData[]
   paragraphs: string[]
+  resumeHtml: string
   expertise: AboutExpertiseData[]
   contacts: AboutContactData[]
 }
@@ -453,6 +455,10 @@ const aboutData: AboutDataShape = {
     '近年来我专注于 AI 产品方向，主导过智能外呼、RAG 健康咨询、CRM 与呼叫中心工作台等多个项目，擅长把大模型能力转化为可落地、能交付价值的产品。',
     '我相信好的产品源于对真实问题的深入理解。比起追逐技术热点，我更在意 AI 能否切实解决用户的具体场景。',
   ],
+  resumeHtml:
+    '<p>我是邢庆中，一名 <strong>AI 产品经理</strong>。从 UI 设计师起步，一路走过交互设计、产品设计与产品管理，逐步建立起以用户为中心、以数据驱动的产品方法论。</p>' +
+    '<p>近年来我专注于 AI 产品方向，主导过智能外呼、RAG 健康咨询、CRM 与呼叫中心工作台等多个项目，擅长把大模型能力转化为可落地、能交付价值的产品。</p>' +
+    '<p>我相信好的产品源于对真实问题的深入理解。比起追逐技术热点，我更在意 AI 能否切实解决用户的具体场景。</p>',
   expertise: [
     { name: 'AI 应用产品', desc: '大模型、RAG、智能体应用的产品设计与落地' },
     { name: '产品设计', desc: '从 0 到 1 的产品规划与用户体验优化' },
@@ -537,5 +543,67 @@ export function getHomeData(): HomeData {
       { period: '2015 - 2018', title: '产品设计师', desc: '专注于用户体验设计，参与多个产品设计项目' },
       { period: '2012 - 2015', title: 'UI 设计师', desc: '从视觉设计开始，培养设计思维与审美能力' },
     ],
+  }
+}
+
+/** 思考文章 Mock 源数据（含详情字段），列表与详情共用 */
+const THOUGHTS = [
+  {
+    id: 1,
+    title: '如何设计一个高转化的 AI 咨询系统',
+    date: '2025.05.20',
+    workTitle: '96129 智能咨询',
+    workSlug: 'znzx',
+    sections: [
+      { heading: '正文', paragraphs: ['从用户需求到产品落地的完整思考过程，涵盖场景拆解、对话设计与转化路径优化。'] },
+    ],
+  },
+  {
+    id: 2,
+    title: 'RAG 在医疗场景的应用与优化',
+    date: '2025.04.15',
+    workTitle: '智能随访系统',
+    workSlug: 'zhinsuifang',
+    sections: [
+      { heading: '正文', paragraphs: ['解决方案、效果评估与未来展望，重点讨论知识库构建与检索质量。'] },
+    ],
+  },
+]
+
+/**
+ * 获取全部已发布思考文章列表（Mock）
+ * 返回列表项字段，正文摘要取首段前 60 字
+ */
+export function getAllThoughts() {
+  return THOUGHTS.map((t) => ({
+    id: t.id,
+    title: t.title,
+    desc: (t.sections[0]?.paragraphs[0] ?? '').slice(0, 60),
+    date: t.date,
+    workTitle: t.workTitle,
+    workSlug: t.workSlug,
+  }))
+}
+
+/**
+ * 按 ID 获取思考详情（Mock）
+ * 未找到返回 null；prev/next 按数组相邻推导
+ * @param id 文章 ID
+ */
+export function getThoughtDetail(id: number) {
+  const idx = THOUGHTS.findIndex((t) => t.id === id)
+  if (idx === -1) return null
+  const t = THOUGHTS[idx]
+  const prev = idx > 0 ? THOUGHTS[idx - 1] : null
+  const next = idx < THOUGHTS.length - 1 ? THOUGHTS[idx + 1] : null
+  return {
+    id: t.id,
+    title: t.title,
+    date: t.date,
+    workTitle: t.workTitle,
+    workSlug: t.workSlug,
+    sections: t.sections,
+    prev: prev ? { id: prev.id, title: prev.title } : null,
+    next: next ? { id: next.id, title: next.title } : null,
   }
 }

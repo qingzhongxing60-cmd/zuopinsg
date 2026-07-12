@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common'
+import { createHash } from 'crypto'
+import { Injectable, Logger } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 import { PrismaService } from '@/common/prisma.service'
 import { SiteWorkItemVo, SiteWorkDetailVo, SiteWorkSectionVo } from '../vo/site-work.vo'
 
@@ -6,9 +8,12 @@ import { SiteWorkItemVo, SiteWorkDetailVo, SiteWorkSectionVo } from '../vo/site-
  * 展示站点作品服务
  * 提供公开的已发布作品列表与详情：草稿隔离（status=1）、按发布日期倒序、
  * 详情含由富文本解析的正文分节与上下篇导航。底层查询异常向上抛出，由前端加载失败空态兜底。
+ * 另提供访问量去重累加（recordView），作为详情请求的副作用，异常不影响详情返回。
  */
 @Injectable()
 export class SiteWorkService {
+  private readonly logger = new Logger(SiteWorkService.name)
+
   constructor(private readonly prisma: PrismaService) {}
 
   /**
@@ -66,6 +71,47 @@ export class SiteWorkService {
       sections: this.parseSections(work.detail),
       prev,
       next,
+    }
+  }
+
+  /**
+   * 记录一次作品访问并按同源自然日去重累加访问量
+   * 以 visitorKey（IP+UA 的 sha256 前 32 位，脱敏不存原始 IP）+ visitDate（UTC 自然日）
+   * 借 work_view_log 唯一约束去重：插入成功则 Work.views 原子 +1；命中唯一冲突（P2002）视为
+   * 当日已记录，跳过累加。整体为详情请求的副作用，任何异常都吞掉并记日志，不向上抛出、不影响详情返回。
+   * @param workId 作品 ID
+   * @param ip 客户端 IP（已由控制器解析，可能为空串）
+   * @param userAgent 客户端 User-Agent（可能为空串）
+   */
+  async recordView(workId: number, ip: string, userAgent: string): Promise<void> {
+    try {
+      // 指纹：sha256(ip + ':' + userAgent) 前 32 位，仅存哈希不存原始 IP（脱敏）
+      const visitorKey = createHash('sha256')
+        .update(`${ip}:${userAgent}`)
+        .digest('hex')
+        .slice(0, 32)
+      // UTC 自然日 YYYY-MM-DD，与 schema 约定一致（不用东八区，避免跨时区去重口径漂移）
+      const visitDate = new Date().toISOString().slice(0, 10)
+
+      // 事务包裹「插日志占坑 + 累加」两步，保证原子：
+      // 唯一约束 [workId, visitorKey, visitDate] 命中（当日重复访问）→ create 抛 P2002 整体回滚，不累加；
+      // 非重复 → 两步同成同败，避免占坑成功但累加失败导致该访客当日永久漏计。
+      await this.prisma.$transaction([
+        this.prisma.workViewLog.create({
+          data: { workId, visitorKey, visitDate },
+        }),
+        this.prisma.work.update({
+          where: { id: workId },
+          data: { views: { increment: 1 } },
+        }),
+      ])
+    } catch (e) {
+      // P2002 = 唯一约束冲突，即同源当日已访问，属正常去重命中，静默跳过
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+        return
+      }
+      // 其余异常（如作品刚被删导致 update 失败）不影响详情返回，仅记录告警
+      this.logger.warn(`访问量累加失败（workId=${workId}）：${e instanceof Error ? e.message : e}`)
     }
   }
 

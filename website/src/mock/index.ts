@@ -1,4 +1,12 @@
-import { getHomeData, getAllPublishedWorks, getWorkDetail, getAbout, getAllCategories } from './site'
+import {
+  getHomeData,
+  getAllPublishedWorks,
+  getWorkDetail,
+  getAbout,
+  getAllCategories,
+  getAllThoughts,
+  getThoughtDetail,
+} from './site'
 
 // 全局 mock 开关 — 控制是否启用 mock 数据
 // 当前为 false：所有接口均走 vite 代理请求真实后端；改为 true 可重新启用 mock 拦截
@@ -46,6 +54,12 @@ if (MOCK_ENABLED) {
         data: getAllCategories(),
         message: 'ok',
       }),
+      // 展示站点全部已发布思考文章列表（草稿隔离，时间倒序）
+      '/api/site/thoughts': () => ({
+        code: 0,
+        data: getAllThoughts(),
+        message: 'ok',
+      }),
       // 注意：/api/site/timeline 不在此处，直接调用后端真实 API
       // 展示站点「关于我」聚合数据
       '/api/site/about': () => ({
@@ -71,6 +85,19 @@ if (MOCK_ENABLED) {
         return detail
           ? { code: 0, data: detail, message: 'ok' }
           : { code: 404, data: null, message: '作品不存在或已下架' }
+      }
+    }
+    // GET /api/site/thoughts/:id —— 思考详情
+    const thoughtPrefix = '/api/site/thoughts/'
+    if (method === 'GET' && pathname.startsWith(thoughtPrefix)) {
+      const idStr = decodeURIComponent(pathname.slice(thoughtPrefix.length))
+      const id = Number(idStr)
+      // 排除空段、多级路径与非正整数 id
+      if (idStr && !idStr.includes('/') && Number.isInteger(id) && id > 0) {
+        const detail = getThoughtDetail(id)
+        return detail
+          ? { code: 0, data: detail, message: 'ok' }
+          : { code: 404, data: null, message: '文章不存在或已下架' }
       }
     }
     return null

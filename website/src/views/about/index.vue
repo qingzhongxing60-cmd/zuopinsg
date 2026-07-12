@@ -65,19 +65,23 @@
           </dl>
         </header>
 
-        <!-- 自我介绍 -->
-        <section v-if="data.paragraphs.length" class="mb-12">
+        <!-- 自我介绍：优先渲染净化后的简历富文本（含图片/格式），否则回退纯文本段落 -->
+        <section v-if="data.resumeHtml || data.paragraphs.length" class="mb-12">
           <div class="flex items-center gap-3 mb-4">
             <h2 class="font-serif text-xl font-bold text-ink">自我介绍</h2>
             <span class="w-8 h-px bg-rust"></span>
           </div>
-          <p
-            v-for="(para, i) in data.paragraphs"
-            :key="i"
-            class="text-sm text-stone leading-relaxed mb-3 last:mb-0"
-          >
-            {{ para }}
-          </p>
+          <!-- resumeHtml 由后端 sanitize-html 白名单净化，可安全 v-html 渲染 -->
+          <div v-if="data.resumeHtml" class="resume-prose" v-html="data.resumeHtml"></div>
+          <template v-else>
+            <p
+              v-for="(para, i) in data.paragraphs"
+              :key="i"
+              class="text-sm text-stone leading-relaxed mb-3 last:mb-0"
+            >
+              {{ para }}
+            </p>
+          </template>
         </section>
 
         <!-- 专长领域 -->
@@ -158,4 +162,81 @@ async function loadAbout() {
 onMounted(loadAbout)
 </script>
 
+<style scoped>
+/* 简历富文本排版：v-html 内容不受 scoped 约束，用 :deep 穿透 */
+.resume-prose {
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: var(--color-stone, #57534e);
+}
+
+.resume-prose :deep(p) {
+  margin-bottom: 0.75rem;
+}
+
+.resume-prose :deep(p:last-child) {
+  margin-bottom: 0;
+}
+
+/* 图片自适应容器，避免溢出 */
+.resume-prose :deep(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.resume-prose :deep(h1),
+.resume-prose :deep(h2),
+.resume-prose :deep(h3),
+.resume-prose :deep(h4) {
+  font-weight: 700;
+  color: var(--color-ink, #1c1917);
+  margin: 1.25rem 0 0.5rem;
+  line-height: 1.4;
+}
+
+.resume-prose :deep(ul),
+.resume-prose :deep(ol) {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.resume-prose :deep(ul) {
+  list-style: disc;
+}
+
+.resume-prose :deep(ol) {
+  list-style: decimal;
+}
+
+.resume-prose :deep(li) {
+  margin-bottom: 0.25rem;
+}
+
+.resume-prose :deep(a) {
+  color: var(--color-rust, #b45309);
+  text-decoration: underline;
+}
+
+.resume-prose :deep(blockquote) {
+  border-left: 3px solid var(--color-sand, #d6d3d1);
+  padding-left: 1rem;
+  color: var(--color-mute, #78716c);
+  margin: 0.75rem 0;
+}
+
+.resume-prose :deep(table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.75rem 0;
+}
+
+.resume-prose :deep(th),
+.resume-prose :deep(td) {
+  border: 1px solid var(--color-sand, #d6d3d1);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+</style>
 

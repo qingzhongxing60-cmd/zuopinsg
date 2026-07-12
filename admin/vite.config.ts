@@ -15,9 +15,6 @@ export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, root)
   const { VITE_VERSION, VITE_PORT, VITE_BASE_URL, VITE_API_URL, VITE_API_PROXY_URL } = env
 
-  console.log(`🚀 API_URL = ${VITE_API_URL}`)
-  console.log(`🚀 VERSION = ${VITE_VERSION}`)
-
   return defineConfig({
     define: {
       __APP_VERSION__: JSON.stringify(VITE_VERSION)
@@ -38,6 +35,11 @@ export default ({ mode }: { mode: string }) => {
         },
         // 公共接口
         '/api': {
+          target: VITE_API_PROXY_URL,
+          changeOrigin: true
+        },
+        // 上传文件静态资源（后端 /uploads/ 目录）
+        '/uploads': {
           target: VITE_API_PROXY_URL,
           changeOrigin: true
         },

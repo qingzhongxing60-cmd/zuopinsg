@@ -23,6 +23,9 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get<number>('SERVER_PORT', 9001);
+  // 绑定地址：默认 0.0.0.0 监听所有接口（生产 Docker/容器网络必需）
+  // 本地开发在 .env 显式设 SERVER_HOST=127.0.0.2，与前端 vite 代理目标一致，避开 127.0.0.1:9001 上其他服务占用
+  const host = configService.get<string>('SERVER_HOST', '0.0.0.0');
   const nodeEnv = configService.get<string>('NODE_ENV', 'development');
 
   // 不设全局前缀：路由前缀由各 controller 显式声明（admin/* 或 app/*），支持多鉴权体系分层
@@ -66,10 +69,10 @@ async function bootstrap() {
   // 启用优雅关闭钩子，确保定时任务等资源正确释放
   app.enableShutdownHooks();
 
-  await app.listen(port);
+  await app.listen(port, host);
 
   const logger = new Logger('Bootstrap');
-  logger.log(`服务已启动: http://localhost:${port}`);
+  logger.log(`服务已启动: http://${host}:${port}`);
   if (nodeEnv !== 'production') {
     logger.log(`API 文档: http://localhost:${port}/docs`);
     // 仅当 pnpm dev 后台拉起了 Prisma Studio 时才提示其地址（pnpm start:dev 不会设此标志）

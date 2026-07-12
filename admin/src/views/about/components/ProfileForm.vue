@@ -59,7 +59,7 @@
   import type { FormInstance, FormRules, UploadFile } from 'element-plus'
   import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
   import '@wangeditor/editor/dist/css/style.css'
-  import type { IDomEditor } from '@wangeditor/editor'
+  import type { IDomEditor, IEditorConfig } from '@wangeditor/editor'
   import { getAboutProfile, updateAboutProfile } from '@/api/about'
   import { uploadImage } from '@/api/upload'
 
@@ -67,6 +67,8 @@
 
   // 头像大小上限 5MB
   const MAX_AVATAR_SIZE = 5 * 1024 * 1024
+  // 简历编辑器内图片大小上限 5MB
+  const MAX_EDITOR_IMAGE_SIZE = 5 * 1024 * 1024
 
   const loading = ref(false)
   const submitLoading = ref(false)
@@ -84,10 +86,36 @@
 
   // 富文本编辑器实例（用 shallowRef，避免深层响应式包裹）
   const editorRef = shallowRef<IDomEditor>()
+  // 保留图片能力，仅排除视频相关菜单
   const toolbarConfig = {
-    excludeKeys: ['uploadImage', 'uploadVideo', 'insertImage', 'insertVideo', 'group-video']
+    excludeKeys: ['uploadVideo', 'insertVideo', 'group-video']
   }
-  const editorConfig = { placeholder: '请输入简历内容（选填）' }
+  // 图片上传：复用统一上传接口，落盘后回填服务器 URL
+  const editorConfig: Partial<IEditorConfig> = {
+    placeholder: '请输入简历内容（选填）',
+    MENU_CONF: {
+      uploadImage: {
+        // 单张图片上限 5MB
+        maxFileSize: MAX_EDITOR_IMAGE_SIZE,
+        // 仅允许图片类型
+        allowedFileTypes: ['image/*'],
+        /**
+         * 自定义上传：上传成功后调用 insertFn 插入图片
+         * @param file 待上传的图片文件
+         * @param insertFn wangeditor 提供的插入函数
+         */
+        async customUpload(file: File, insertFn: (url: string, alt: string, href: string) => void) {
+          try {
+            const url = await uploadImage(file, MAX_EDITOR_IMAGE_SIZE)
+            insertFn(url, file.name, url)
+          } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : '图片上传失败'
+            ElMessage.error(message)
+          }
+        }
+      }
+    }
+  }
 
   function handleEditorCreated(editor: IDomEditor) {
     editorRef.value = editor

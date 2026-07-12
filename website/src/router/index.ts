@@ -26,6 +26,16 @@ const router = createRouter({
           component: () => import('@/views/works/detail/index.vue'),
         },
         {
+          path: 'thoughts',
+          name: 'thoughts',
+          component: () => import('@/views/thoughts/index.vue'),
+        },
+        {
+          path: 'thoughts/:id',
+          name: 'thought-detail',
+          component: () => import('@/views/thoughts/detail/index.vue'),
+        },
+        {
           path: 'timeline',
           name: 'timeline',
           component: () => import('@/views/timeline/index.vue'),

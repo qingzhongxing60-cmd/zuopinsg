@@ -6,13 +6,19 @@ import { ApiProperty } from '@nestjs/swagger'
  * 由后端聚合 HomeConfig / Work / Skill / AboutMe / TimelineNode 数据拼装。
  */
 
-/** Hero 标题行（accent 为强调片段，可选） */
+/** Hero 标题行（accent 为强调片段，tail 为强调片段之后的普通文本，均可选） */
 export class SiteHeroTitleLineVo {
-  @ApiProperty({ description: '正常文本片段' })
+  @ApiProperty({ description: '强调片段之前的正常文本' })
   text: string
 
   @ApiProperty({ description: '强调文本片段（以强调色渲染）', required: false })
   accent?: string
+
+  @ApiProperty({ description: '强调片段的自定义颜色（十六进制色值，缺省用主题强调色）', required: false })
+  accentColor?: string
+
+  @ApiProperty({ description: '强调片段之后的正常文本', required: false })
+  tail?: string
 }
 
 /** Hero 统计指标项 */

@@ -72,7 +72,10 @@ export interface AboutData {
   avatar: string | null
   intro: string
   stats: AboutStat[]
+  /** 自我介绍段落（纯文本兜底，无富文本时使用） */
   paragraphs: string[]
+  /** 简历富文本（后端已净化，含图片与格式，用于 v-html 渲染） */
+  resumeHtml: string
   expertise: AboutExpertise[]
   contacts: AboutContact[]
 }
@@ -81,7 +84,8 @@ export interface AboutData {
 export interface HomeData {
   hero: {
     eyebrow: string
-    titleLines: { text: string; accent?: string }[]
+    /** 标题行：text 为强调前文本，accent 强调片段，tail 强调后文本，accentColor 自定义强调色 */
+    titleLines: { text: string; accent?: string; accentColor?: string; tail?: string }[]
     subtitle: string | null
     stats: { value: string; label: string }[]
     ctaText: string
@@ -245,6 +249,77 @@ export async function getAbout(): Promise<AboutData> {
   // 兼容 mock (code=0) 和后端 API (code=200)
   if (json.code !== 0 && json.code !== 200) {
     throw new Error(json.message || '获取关于我数据失败')
+  }
+  return json.data
+}
+
+/** 思考列表项（展示端只读） */
+export interface ThoughtItem {
+  id: number
+  title: string
+  /** 纯文本摘要（后端由富文本正文去标签截取） */
+  desc: string
+  date: string
+  /** 所属作品标题 */
+  workTitle: string
+  /** 所属作品 slug，用于跳转作品详情；无关联时为 null */
+  workSlug: string | null
+}
+
+/** 思考正文分节 */
+export interface ThoughtSection {
+  heading: string
+  paragraphs: string[]
+}
+
+/** 思考上一篇/下一篇导航项 */
+export interface ThoughtNav {
+  id: number
+  title: string
+}
+
+/** 思考详情（含正文分节与上下篇导航） */
+export interface ThoughtDetail {
+  id: number
+  title: string
+  date: string
+  workTitle: string
+  workSlug: string | null
+  sections: ThoughtSection[]
+  prev: ThoughtNav | null
+  next: ThoughtNav | null
+}
+
+/**
+ * 获取全部已发布思考文章列表
+ * 服务端已执行草稿隔离（仅返回已发布文章）并按创建时间倒序排列
+ */
+export async function getThoughts(): Promise<ThoughtItem[]> {
+  const res = await fetch('/api/site/thoughts')
+  const json = (await res.json()) as ApiResponse<ThoughtItem[]>
+  // 兼容 mock (code=0) 和后端 API (code=200)
+  if (json.code !== 0 && json.code !== 200) {
+    throw new Error(json.message || '获取思考列表失败')
+  }
+  return json.data
+}
+
+/**
+ * 按 ID 获取思考文章详情
+ * 仅返回已发布文章；ID 不存在或指向草稿时 data 为 null（视为未找到，非异常）
+ * @param id 文章 ID
+ * @returns 思考详情，未找到时返回 null
+ */
+export async function getThoughtDetail(id: number): Promise<ThoughtDetail | null> {
+  const res = await fetch(`/api/site/thoughts/${encodeURIComponent(String(id))}`)
+  const json = (await res.json()) as ApiResponse<ThoughtDetail | null>
+  // code=404 表示未找到（草稿或不存在），返回 null 由页面展示未找到态
+  if (json.code === 404) {
+    return null
+  }
+  // 兼容 mock (code=0) 和后端 API (code=200)
+  if (json.code !== 0 && json.code !== 200) {
+    throw new Error(json.message || '获取思考详情失败')
   }
   return json.data
 }

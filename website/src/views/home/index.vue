@@ -12,7 +12,13 @@
             </p>
             <h1 class="font-serif text-5xl lg:text-6xl font-bold text-ink leading-[1.15] mb-6">
               <template v-for="(line, i) in data.hero.titleLines" :key="i">
-                {{ line.text }}<em v-if="line.accent" class="not-italic text-rust">{{ line.accent }}</em>
+                {{ line.text
+                }}<em
+                  v-if="line.accent"
+                  class="not-italic text-rust"
+                  :style="line.accentColor ? { color: line.accentColor } : undefined"
+                  >{{ line.accent }}</em
+                >{{ line.tail }}
                 <br v-if="i < data.hero.titleLines.length - 1" />
               </template>
             </h1>
@@ -170,7 +176,7 @@
           <p class="text-sm text-stone mb-6">分享产品思考与行业洞察，记录成长与感悟。</p>
           <ul>
             <li v-for="thought in data.thoughts" :key="thought.id">
-              <a href="#thoughts" class="group flex items-start justify-between gap-4 py-4 border-b border-sand/50 no-underline">
+              <RouterLink :to="`/thoughts/${thought.id}`" class="group flex items-start justify-between gap-4 py-4 border-b border-sand/50 no-underline">
                 <div class="min-w-0">
                   <p class="font-serif text-sm font-bold text-ink group-hover:text-rust transition-colors">
                     {{ thought.title }}
@@ -178,12 +184,12 @@
                   <p class="text-xs text-stone mt-1.5 leading-relaxed">{{ thought.desc }}</p>
                 </div>
                 <span class="text-xs text-mute shrink-0 whitespace-nowrap mt-0.5">{{ thought.date }}</span>
-              </a>
+              </RouterLink>
             </li>
           </ul>
-          <a href="#thoughts" class="inline-block text-sm text-rust hover:text-rust/80 transition-colors mt-5 no-underline">
+          <RouterLink to="/thoughts" class="inline-block text-sm text-rust hover:text-rust/80 transition-colors mt-5 no-underline">
             查看更多思考 →
-          </a>
+          </RouterLink>
         </div>
       </div>
     </section>

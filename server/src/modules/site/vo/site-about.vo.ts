@@ -56,8 +56,11 @@ export class SiteAboutVo {
   @ApiProperty({ description: '关键数据指标', type: [SiteAboutStatVo] })
   stats: SiteAboutStatVo[]
 
-  @ApiProperty({ description: '自我介绍段落（由简历富文本解析）', type: [String] })
+  @ApiProperty({ description: '自我介绍段落（由简历富文本去标签解析，纯文本兜底）', type: [String] })
   paragraphs: string[]
+
+  @ApiProperty({ description: '简历富文本（已净化，供前端 v-html 渲染，保留图片与格式）' })
+  resumeHtml: string
 
   @ApiProperty({ description: '专长领域（由技能列表映射）', type: [SiteAboutExpertiseVo] })
   expertise: SiteAboutExpertiseVo[]

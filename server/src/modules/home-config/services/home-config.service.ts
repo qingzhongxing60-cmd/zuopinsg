@@ -23,11 +23,13 @@ export class HomeConfigService {
   async getConfig(): Promise<HomeConfigVo> {
     const entity = await this.prisma.homeConfig.findUnique({ where: { id: CONFIG_ID } })
     if (!entity) {
-      return { slogan: '', subtitle: null, featuredWorkIds: [] }
+      return { slogan: '', subtitle: null, highlightText: null, highlightColor: null, featuredWorkIds: [] }
     }
     return {
       slogan: entity.slogan,
       subtitle: entity.subtitle,
+      highlightText: entity.highlightText,
+      highlightColor: entity.highlightColor,
       featuredWorkIds: this.parseFeaturedIds(entity.featuredWorkIds)
     }
   }
@@ -40,9 +42,14 @@ export class HomeConfigService {
    */
   async upsertConfig(dto: UpdateHomeConfigDto): Promise<HomeConfigVo> {
     await this.validateFeaturedIds(dto.featuredWorkIds)
+    // 高亮文字须为标语子串，否则视为无高亮；无高亮时颜色一并置空，避免孤立配置
+    const highlightText = dto.highlightText?.trim() || ''
+    const validHighlight = highlightText && dto.slogan.includes(highlightText) ? highlightText : null
     const data = {
       slogan: dto.slogan,
       subtitle: dto.subtitle ?? null,
+      highlightText: validHighlight,
+      highlightColor: validHighlight ? (dto.highlightColor?.trim() || null) : null,
       featuredWorkIds: dto.featuredWorkIds
     }
     const entity = await this.prisma.homeConfig.upsert({
@@ -53,6 +60,8 @@ export class HomeConfigService {
     return {
       slogan: entity.slogan,
       subtitle: entity.subtitle,
+      highlightText: entity.highlightText,
+      highlightColor: entity.highlightColor,
       featuredWorkIds: this.parseFeaturedIds(entity.featuredWorkIds)
     }
   }

@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npm config *)",
       "Bash(npm install *)",
-      "Bash(pnpm -v)"
+      "Bash(pnpm -v)",
+      "Bash(docker exec *)",
+      "Bash(break)",
+      "Bash(powershell.exe -NoProfile -Command \"\\(Test-NetConnection -ComputerName 127.0.0.1 -Port 23306\\).TcpTestSucceeded\")"
     ]
   }
 }
