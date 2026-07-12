@@ -8,9 +8,19 @@
 # 服务器侧：在 server/docker/.env 里配置(镜像名全小写)：
 #   BACKEND_IMAGE=ghcr.io/<owner>/<repo>-backend:latest
 #   FRONTEND_IMAGE=ghcr.io/<owner>/<repo>-frontend:latest
-# 然后 docker compose pull && docker compose up -d 即可拉取本流程构建的镜像。
+#   WEBSITE_IMAGE=ghcr.io/<owner>/<repo>-website:latest
 #
-# 无需额外密钥：使用 GitHub 内置的 GITHUB_TOKEN 推送到 GHCR。
+# 自动部署(deploy 作业)：镜像构建成功后，自动 SSH 到服务器执行 update.sh
+# (git pull 同步部署文件 → docker compose pull && up -d → 健康检查)。
+# 需在仓库 Settings → Secrets and variables → Actions 配置以下 Secret：
+#   DEPLOY_SSH_HOST  服务器公网 IP 或域名
+#   DEPLOY_SSH_USER  SSH 登录用户名(如 root)
+#   DEPLOY_SSH_KEY   SSH 私钥(对应公钥已加入服务器 ~/.ssh/authorized_keys)
+#   DEPLOY_SSH_PORT  SSH 端口(可选，缺省 22)
+#   DEPLOY_DIR       服务器上 update.sh 所在目录(通常是克隆仓库里的 server/docker)
+# 前提：服务器已一次性 `docker login ghcr.io`(update.sh 里的 compose pull 需要)。
+#
+# 推送镜像到 GHCR 使用 GitHub 内置的 GITHUB_TOKEN，无需额外密钥。
 
 name: Build and Push Images
 
@@ -85,3 +95,36 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  # ==================== 自动部署到服务器 ====================
+  # 三个镜像都构建成功后，SSH 到服务器拉取最新镜像并重启容器。
+  # 仅在 push 到 main(默认分支)时部署；手动 workflow_dispatch 也会部署。
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    timeout-minutes: 15
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_SSH_HOST }}
+          username: ${{ secrets.DEPLOY_SSH_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_SSH_PORT || 22 }}
+          command_timeout: 12m
+          script: |
+            set -eu
+            cd "${{ secrets.DEPLOY_DIR }}"
+            # 若部署目录在克隆的仓库内，先同步最新的部署文件(compose/update.sh/nginx 等)。
+            # 不在 git 仓库或无远端时跳过，不影响后续拉镜像。
+            if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+              echo "==> 同步部署文件 (git pull)..."
+              git fetch --all --prune
+              git checkout main
+              git reset --hard origin/main
+            else
+              echo "==> 非 git 仓库目录，跳过文件同步，直接拉镜像。"
+            fi
+            chmod +x ./update.sh
+            ./update.sh
