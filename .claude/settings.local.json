@@ -6,7 +6,15 @@
       "Bash(pnpm -v)",
       "Bash(docker exec *)",
       "Bash(break)",
-      "Bash(powershell.exe -NoProfile -Command \"\\(Test-NetConnection -ComputerName 127.0.0.1 -Port 23306\\).TcpTestSucceeded\")"
+      "Bash(powershell.exe -NoProfile -Command \"\\(Test-NetConnection -ComputerName 127.0.0.1 -Port 23306\\).TcpTestSucceeded\")",
+      "Bash(powershell.exe -NoProfile -Command \"\\(Get-Command gh -ErrorAction SilentlyContinue\\).Source\")",
+      "Bash(powershell.exe -NoProfile -Command \"pnpm install --lockfile-only\")",
+      "Bash(powershell.exe -NoProfile -Command \"pnpm install --frozen-lockfile --offline 2>&1 | Select-Object -Last 8\")",
+      "Bash(git add *)",
+      "Bash(git commit -m 'fix\\(deploy\\): 更新 pnpm-lock.yaml 补齐 sanitize-html 依赖 *)",
+      "Bash(git push *)",
+      "Bash(powershell.exe -NoProfile -Command \"winget install --id GitHub.cli --silent --accept-source-agreements --accept-package-agreements 2>&1 | Select-Object -Last 15\")",
+      "PowerShell($p = 'C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe'; if \\(Test-Path $p\\) { & $p --version } else { 'not found at default path' })"
     ]
   }
 }

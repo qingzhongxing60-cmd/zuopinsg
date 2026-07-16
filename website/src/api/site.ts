@@ -132,7 +132,20 @@ export interface WorkNav {
   slug: string
 }
 
-/** 作品详情（含正文分节与上下篇导航） */
+/** 原型图片（展示端只读） */
+export interface WorkPrototypeImage {
+  url: string
+  caption: string | null
+}
+
+/** 原型版本（展示端只读，含该版本下的图片） */
+export interface WorkPrototypeVersion {
+  name: string
+  title: string | null
+  images: WorkPrototypeImage[]
+}
+
+/** 作品详情（含正文分节、原型演示与上下篇导航） */
 export interface WorkDetail {
   id: number
   title: string
@@ -146,6 +159,8 @@ export interface WorkDetail {
   tags: string[]
   overview: string | null
   sections: WorkSection[]
+  /** 原型演示版本（仅含至少一张图片的版本，无则为空数组） */
+  prototypes: WorkPrototypeVersion[]
   prev: WorkNav | null
   next: WorkNav | null
 }

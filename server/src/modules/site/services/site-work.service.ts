@@ -2,7 +2,12 @@ import { createHash } from 'crypto'
 import { Injectable, Logger } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { PrismaService } from '@/common/prisma.service'
-import { SiteWorkItemVo, SiteWorkDetailVo, SiteWorkSectionVo } from '../vo/site-work.vo'
+import {
+  SiteWorkItemVo,
+  SiteWorkDetailVo,
+  SiteWorkSectionVo,
+  SiteWorkPrototypeVersionVo,
+} from '../vo/site-work.vo'
 
 /**
  * 展示站点作品服务
@@ -49,7 +54,18 @@ export class SiteWorkService {
   async getWorkDetail(slug: string): Promise<SiteWorkDetailVo | null> {
     const work = await this.prisma.work.findFirst({
       where: { slug, status: 1 },
-      include: { category: { select: { name: true } } },
+      include: {
+        category: { select: { name: true } },
+        // 原型版本连同各版本图片一并取回，排序口径与后台管理端一致（sort 升序 null 最后 → createTime 升序）
+        prototypeVersions: {
+          orderBy: [{ sort: { sort: 'asc', nulls: 'last' } }, { createTime: 'asc' }],
+          include: {
+            images: {
+              orderBy: [{ sort: { sort: 'asc', nulls: 'last' } }, { createTime: 'asc' }],
+            },
+          },
+        },
+      },
     })
     if (!work) return null
 
@@ -69,9 +85,28 @@ export class SiteWorkService {
       tags: [],
       overview: null,
       sections: this.parseSections(work.detail),
+      prototypes: this.toPrototypes(work.prototypeVersions),
       prev,
       next,
     }
+  }
+
+  /**
+   * 将原型版本（含图片）映射为展示端 VO
+   * 仅保留至少含一张图片的版本（空版本对访客无展示意义），版本与图片顺序沿用查询排序。
+   * @param versions 带 images 的原型版本列表
+   * @returns 展示端原型版本 VO 数组
+   */
+  private toPrototypes(
+    versions: { name: string; title: string | null; images: { url: string; caption: string | null }[] }[],
+  ): SiteWorkPrototypeVersionVo[] {
+    return versions
+      .filter((v) => v.images.length > 0)
+      .map((v) => ({
+        name: v.name,
+        title: v.title,
+        images: v.images.map((img) => ({ url: img.url, caption: img.caption })),
+      }))
   }
 
   /**

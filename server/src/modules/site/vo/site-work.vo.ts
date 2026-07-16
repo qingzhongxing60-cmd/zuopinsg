@@ -48,6 +48,27 @@ export class SiteWorkNavVo {
   slug: string
 }
 
+/** 原型图片（展示端只读） */
+export class SiteWorkPrototypeImageVo {
+  @ApiProperty({ description: '图片 URL' })
+  url: string
+
+  @ApiProperty({ description: '图片说明文字', nullable: true })
+  caption: string | null
+}
+
+/** 原型版本（展示端只读，含该版本下的图片） */
+export class SiteWorkPrototypeVersionVo {
+  @ApiProperty({ description: '版本名（如 V1/V2）' })
+  name: string
+
+  @ApiProperty({ description: '版本标题/简短说明', nullable: true })
+  title: string | null
+
+  @ApiProperty({ description: '该版本下的原型图片', type: [SiteWorkPrototypeImageVo] })
+  images: SiteWorkPrototypeImageVo[]
+}
+
 /** 作品详情（含正文分节与上下篇导航） */
 export class SiteWorkDetailVo {
   @ApiProperty({ description: '作品 ID' })
@@ -85,6 +106,9 @@ export class SiteWorkDetailVo {
 
   @ApiProperty({ description: '正文分节（由富文本详情解析）', type: [SiteWorkSectionVo] })
   sections: SiteWorkSectionVo[]
+
+  @ApiProperty({ description: '原型演示版本（仅含至少一张图片的版本，无则为空数组）', type: [SiteWorkPrototypeVersionVo] })
+  prototypes: SiteWorkPrototypeVersionVo[]
 
   @ApiProperty({ description: '上一篇导航', type: SiteWorkNavVo, nullable: true })
   prev: SiteWorkNavVo | null

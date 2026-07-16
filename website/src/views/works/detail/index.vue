@@ -122,6 +122,58 @@
           </p>
         </section>
 
+        <!-- 原型演示：有原型版本时展示，多版本可切换，展示当前版本的原型图片 -->
+        <section v-if="detail.prototypes.length" class="mb-9">
+          <div class="flex items-center gap-3 mb-4">
+            <h2 class="font-serif text-xl font-bold text-ink">原型演示</h2>
+            <span class="w-8 h-px bg-rust"></span>
+          </div>
+
+          <!-- 版本切换：单版本时也展示当前版本标签，保持结构一致 -->
+          <div class="flex flex-wrap gap-2 mb-5">
+            <button
+              v-for="(version, vi) in detail.prototypes"
+              :key="version.name"
+              type="button"
+              class="px-3 py-1 rounded-full text-xs font-medium transition-colors"
+              :class="
+                vi === activeVersion
+                  ? 'bg-rust-tint text-rust'
+                  : 'bg-paper border border-sand text-stone hover:text-rust hover:border-rust/30'
+              "
+              @click="activeVersion = vi"
+            >
+              {{ version.name }}<template v-if="version.title"> · {{ version.title }}</template>
+            </button>
+          </div>
+
+          <!-- 当前版本的原型图片墙 -->
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <li v-for="(img, ii) in currentImages" :key="ii">
+              <div class="aspect-[16/10] rounded-lg overflow-hidden bg-sand/40">
+                <img
+                  v-if="img.url"
+                  :src="img.url"
+                  :alt="img.caption || `${detail.title} 原型图`"
+                  width="640"
+                  height="400"
+                  loading="lazy"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  v-else
+                  class="w-full h-full flex items-center justify-center bg-gradient-to-br from-sand/60 to-rust-tint"
+                >
+                  <span class="font-serif text-rust-soft text-sm tracking-widest">原型图</span>
+                </div>
+              </div>
+              <p v-if="img.caption" class="mt-2 text-xs text-stone leading-relaxed">
+                {{ img.caption }}
+              </p>
+            </li>
+          </ul>
+        </section>
+
         <!-- 上一篇 / 下一篇导航 -->
         <nav
           v-if="detail.prev || detail.next"
@@ -160,10 +212,10 @@
  * 按路由参数 slug 加载单作品详情，展示头部/正文/上下篇导航
  * 草稿或不存在的 slug 显示未找到态，接口异常显示加载失败态
  */
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { getWorkDetail } from '@/api/site'
-import type { WorkDetail } from '@/api/site'
+import type { WorkDetail, WorkPrototypeImage } from '@/api/site'
 
 const route = useRoute()
 
@@ -171,12 +223,22 @@ const loading = ref(true)
 const loadFailed = ref(false)
 const detail = ref<WorkDetail | null>(null)
 
+// 当前选中的原型版本索引；切换作品时在 loadDetail 内重置为 0
+const activeVersion = ref(0)
+
+// 当前版本的原型图片；版本索引越界（数据变化）时安全回退空数组
+const currentImages = computed<WorkPrototypeImage[]>(
+  () => detail.value?.prototypes[activeVersion.value]?.images ?? [],
+)
+
 // 加载当前 slug 对应的作品详情
 async function loadDetail() {
   const slug = String(route.params.slug || '')
   loading.value = true
   loadFailed.value = false
   detail.value = null
+  // 切换作品时重置原型版本选中态，避免沿用上一作品的索引
+  activeVersion.value = 0
   // slug 为空：直接展示未找到态，不发起无意义请求
   if (!slug) {
     loading.value = false

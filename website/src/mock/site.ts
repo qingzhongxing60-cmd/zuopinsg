@@ -179,6 +179,19 @@ interface WorkSection {
   paragraphs: string[]
 }
 
+/** 原型图片（展示端只读） */
+interface WorkPrototypeImage {
+  url: string
+  caption: string | null
+}
+
+/** 原型版本（展示端只读，含该版本下的图片） */
+interface WorkPrototypeVersion {
+  name: string
+  title: string | null
+  images: WorkPrototypeImage[]
+}
+
 /** 作品详情扩展字段（按 slug 映射，挂接到精简 works 数据源之上） */
 interface WorkDetailExtra {
   role: string | null
@@ -186,6 +199,8 @@ interface WorkDetailExtra {
   tags: string[]
   overview: string | null
   sections: WorkSection[]
+  // 原型演示版本（可选，仅部分作品有原型；无则详情页不渲染该区）
+  prototypes?: WorkPrototypeVersion[]
 }
 
 // 作品详情扩展数据（仅在详情页使用，与 works 通过 slug 关联）
@@ -224,6 +239,22 @@ const workDetailExtras: Record<string, WorkDetailExtra> = {
           '上线后随访覆盖率从 30% 提升至 85%，单日外呼量提升数倍。',
           '随访记录结构化沉淀，为后续慢病管理提供了可分析的数据基础。',
         ],
+      },
+    ],
+    // 原型演示：两个迭代版本，各含若干原型图片（mock 用空 url 触发前端占位兜底）
+    prototypes: [
+      {
+        name: 'V1',
+        title: '初步确定',
+        images: [
+          { url: '', caption: 'AI 工作流确定' },
+          { url: '', caption: '外呼策略编排草图' },
+        ],
+      },
+      {
+        name: 'V2',
+        title: '更新流程',
+        images: [{ url: '', caption: null }],
       },
     ],
   },
@@ -323,13 +354,14 @@ interface PublicWorkNav {
   slug: string
 }
 
-/** 展示端作品详情（合并精简字段与扩展字段，含上下篇导航） */
+/** 展示端作品详情（合并精简字段与扩展字段，含原型演示与上下篇导航） */
 export interface PublicWorkDetail extends PublicWork {
   role: string | null
   duration: string | null
   tags: string[]
   overview: string | null
   sections: WorkSection[]
+  prototypes: WorkPrototypeVersion[]
   prev: PublicWorkNav | null
   next: PublicWorkNav | null
 }
@@ -357,6 +389,7 @@ export function getWorkDetail(slug: string): PublicWorkDetail | null {
     tags: extra?.tags ?? [],
     overview: extra?.overview ?? null,
     sections: extra?.sections ?? [],
+    prototypes: extra?.prototypes ?? [],
     prev: prev ? { title: prev.title, slug: prev.slug } : null,
     next: next ? { title: next.title, slug: next.slug } : null,
   }
