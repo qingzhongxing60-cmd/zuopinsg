@@ -13,11 +13,11 @@
 # 自动部署(deploy 作业)：镜像构建成功后，自动 SSH 到服务器执行 update.sh
 # (git pull 同步部署文件 → docker compose pull && up -d → 健康检查)。
 # 需在仓库 Settings → Secrets and variables → Actions 配置以下 Secret：
-#   DEPLOY_SSH_HOST  服务器公网 IP 或域名
-#   DEPLOY_SSH_USER  SSH 登录用户名(如 root)
-#   DEPLOY_SSH_KEY   SSH 私钥(对应公钥已加入服务器 ~/.ssh/authorized_keys)
-#   DEPLOY_SSH_PORT  SSH 端口(可选，缺省 22)
-#   DEPLOY_DIR       服务器上 update.sh 所在目录(通常是克隆仓库里的 server/docker)
+#   DEPLOY_SSH_HOST      服务器公网 IP 或域名
+#   DEPLOY_SSH_USER      SSH 登录用户名(如 root)
+#   DEPLOY_SSH_PASSWORD  SSH 登录密码
+#   DEPLOY_SSH_PORT      SSH 端口(可选，缺省 22)
+#   DEPLOY_DIR           服务器上 update.sh 所在目录(克隆仓库里的 server/docker)
 # 前提：服务器已一次性 `docker login ghcr.io`(update.sh 里的 compose pull 需要)。
 #
 # 推送镜像到 GHCR 使用 GitHub 内置的 GITHUB_TOKEN，无需额外密钥。
@@ -110,7 +110,7 @@ jobs:
         with:
           host: ${{ secrets.DEPLOY_SSH_HOST }}
           username: ${{ secrets.DEPLOY_SSH_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          password: ${{ secrets.DEPLOY_SSH_PASSWORD }}
           port: ${{ secrets.DEPLOY_SSH_PORT || 22 }}
           command_timeout: 12m
           script: |
