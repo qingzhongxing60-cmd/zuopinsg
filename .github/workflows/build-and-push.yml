@@ -104,6 +104,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: read # 服务器拉取 GHCR 私有镜像需要
     steps:
       # 部署前先校验必填 Secret，缺失时给出明确的中文提示。
       # (GitHub 读取不存在的 Secret 会替换成空字符串，否则只会看到英文 "missing server host")
@@ -128,15 +131,23 @@ jobs:
 
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.2.0
+        env:
+          GHCR_USER: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           host: ${{ secrets.DEPLOY_SSH_HOST }}
           username: ${{ secrets.DEPLOY_SSH_USER }}
           password: ${{ secrets.DEPLOY_SSH_PASSWORD }}
           port: ${{ secrets.DEPLOY_SSH_PORT || 22 }}
           command_timeout: 12m
+          # 通过加密通道把 GHCR 登录凭据传到服务器，供 docker compose pull 拉私有镜像
+          envs: GHCR_USER,GHCR_TOKEN
           script: |
             set -eu
             cd "${{ secrets.DEPLOY_DIR }}"
+            # 自动登录 GHCR（token 为本次运行的临时凭据，随作业结束失效）
+            echo "==> 登录 GHCR..."
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
             # 若部署目录在克隆的仓库内，先同步最新的部署文件(compose/update.sh/nginx 等)。
             # 不在 git 仓库或无远端时跳过，不影响后续拉镜像。
             if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
