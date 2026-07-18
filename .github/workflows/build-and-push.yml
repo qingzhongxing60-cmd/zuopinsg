@@ -105,6 +105,27 @@ jobs:
     if: github.ref == 'refs/heads/main'
     timeout-minutes: 15
     steps:
+      # 部署前先校验必填 Secret，缺失时给出明确的中文提示。
+      # (GitHub 读取不存在的 Secret 会替换成空字符串，否则只会看到英文 "missing server host")
+      - name: 校验部署 Secret 是否配置
+        env:
+          DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          DEPLOY_SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+          DEPLOY_SSH_PASSWORD: ${{ secrets.DEPLOY_SSH_PASSWORD }}
+          DEPLOY_DIR: ${{ secrets.DEPLOY_DIR }}
+        run: |
+          missing=""
+          for v in DEPLOY_SSH_HOST DEPLOY_SSH_USER DEPLOY_SSH_PASSWORD DEPLOY_DIR; do
+            eval "val=\${$v:-}"
+            [ -z "$val" ] && missing="$missing $v"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::缺少以下部署 Secret：$missing"
+            echo "请到 仓库 Settings → Secrets and variables → Actions → Secrets 添加（注意是 Secrets 不是 Variables，名字区分大小写）。"
+            exit 1
+          fi
+          echo "部署 Secret 校验通过。"
+
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
