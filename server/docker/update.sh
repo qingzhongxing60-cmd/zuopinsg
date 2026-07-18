@@ -43,7 +43,24 @@ done
 COMPOSE="docker compose -f docker-compose.yaml --env-file .env"
 
 echo "==> 拉取最新镜像..."
-$COMPOSE pull
+# 国内服务器连 ghcr.io 可能缓慢/中断，做多次重试；docker 会把已下载完成的层
+# 缓存到本地，每次重试都能续上进度，不会从头再来。
+# --quiet 避免非 TTY 下每层进度逐行刷屏（上万行日志、拖累 SSH 会话）。
+pull_ok=false
+for i in 1 2 3 4 5; do
+  echo "==> 第 $i 次拉取镜像..."
+  if $COMPOSE pull --quiet; then
+    pull_ok=true
+    break
+  fi
+  echo "==> 第 $i 次未拉全，15s 后重试（已完成的层会复用）..."
+  sleep 15
+done
+if [ "$pull_ok" != "true" ]; then
+  echo "错误：多次重试后镜像仍未拉全，多为服务器到 ghcr.io 网络不稳定。" >&2
+  echo "可稍后在 Actions 页面重跑本作业（已下载的层会保留、继续续传），或为服务器配置镜像加速/代理。" >&2
+  exit 1
+fi
 
 echo "==> 重建并启动容器..."
 $COMPOSE up -d

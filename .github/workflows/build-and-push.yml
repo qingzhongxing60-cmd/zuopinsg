@@ -103,7 +103,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    timeout-minutes: 15
+    timeout-minutes: 40
     permissions:
       contents: read
       packages: read # 服务器拉取 GHCR 私有镜像需要
@@ -139,7 +139,7 @@ jobs:
           username: ${{ secrets.DEPLOY_SSH_USER }}
           password: ${{ secrets.DEPLOY_SSH_PASSWORD }}
           port: ${{ secrets.DEPLOY_SSH_PORT || 22 }}
-          command_timeout: 12m
+          command_timeout: 35m
           # 通过加密通道把 GHCR 登录凭据传到服务器，供 docker compose pull 拉私有镜像
           envs: GHCR_USER,GHCR_TOKEN
           script: |
