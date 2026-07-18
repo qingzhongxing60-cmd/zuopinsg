@@ -151,10 +151,21 @@ jobs:
             # 若部署目录在克隆的仓库内，先同步最新的部署文件(compose/update.sh/nginx 等)。
             # 不在 git 仓库或无远端时跳过，不影响后续拉镜像。
             if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-              echo "==> 同步部署文件 (git pull)..."
-              git fetch --all --prune
-              git checkout main
-              git reset --hard origin/main
+              echo "==> 同步部署文件 (git fetch，含重试)..."
+              # 服务器到 github.com 的 TLS 连接常被中途重置，单次 fetch 易失败，
+              # 做多次重试；实在拉不下来也不致命——继续用现有部署文件拉镜像即可。
+              fetch_ok=false
+              for i in 1 2 3 4 5; do
+                if git fetch --all --prune; then fetch_ok=true; break; fi
+                echo "==> 第 $i 次 git fetch 失败，10s 后重试..."
+                sleep 10
+              done
+              if [ "$fetch_ok" = "true" ]; then
+                git checkout main
+                git reset --hard origin/main
+              else
+                echo "==> 多次 git fetch 均失败，跳过文件同步，沿用现有部署文件继续。" >&2
+              fi
             else
               echo "==> 非 git 仓库目录，跳过文件同步，直接拉镜像。"
             fi
